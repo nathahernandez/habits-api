@@ -1,21 +1,15 @@
-import fastify from "fastify";
-import cors from "@fastify/cors";
-import { PrismaClient } from "@prisma/client";
+import fastify from "fastify"
+import cors from "@fastify/cors"
+import { appRouter } from "./router"
 
-const port = 4444;
-const app = fastify();
-const prisma = new PrismaClient();
-
-app.register(cors);
-
-app.get("/", async () => {
-	const habits = await prisma.habit.findMany();
-	return habits;
-});
+const port = 4444
+const app = fastify()
 
 try {
-	app.listen({ port }).then(() => console.log(`Running on http://localhost:${port}`));
+	app.register(cors)
+	app.register(appRouter)
+	app.listen({ port }).then(() => console.log(`Running on http://localhost:${port} ✅`))
 }
 catch (err) {
-	console.log(`Erro: ${err}`);
+	console.log(`Startup error: ${err} ❌`)
 }
