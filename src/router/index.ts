@@ -9,5 +9,4 @@ export const appRouter = async (app : FastifyInstance) => {
 	catch (err) {
 		console.log(`Router error: ${err}`);
 	}
-
 };

@@ -1,13 +1,11 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 import dayjs from "dayjs";
-
 import { prisma } from "../lib/prisma";
 
 const controllers = {
 	habits: {
 		post: async (req: FastifyRequest, res: FastifyReply) => {
-
 			const createHabitBody = z.object({
 				title: z.string(),
 				weekDays: z.array(z.number().min(0).max(6))
@@ -55,7 +53,6 @@ const controllers = {
 						}
 					}
 				});
-
 				const day = await prisma.day.findUnique({
 					where: {
 						date: parsedDate.toDate()
@@ -64,11 +61,9 @@ const controllers = {
 						dayHabits: true
 					}
 				});
-
 				const completedHabits = day?.dayHabits.map(({ habit_id }) => habit_id);
 
 				res.status(200).send({ possibleHabits, completedHabits });
-
 			}
 			catch (err){
 				res.status(400).send(err);
@@ -76,6 +71,5 @@ const controllers = {
 		}
 	}
 };
-
 
 export default controllers;
