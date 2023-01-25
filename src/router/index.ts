@@ -1,11 +1,12 @@
 import { FastifyInstance } from "fastify";
-import controllers from "../controllers";
+import { dayController, habitsController, statsController } from "../controller";
 
 export const appRouter = async (app : FastifyInstance) => {
 	try {
-		app.post("/habits", controllers.habits.post);
-		app.patch("/habits/:id/toggle", controllers.habits.patch);
-		app.get("/day", controllers.day.get);
+		app.post("/habits", habitsController.createHabit);
+		app.patch("/habits/:id/toggle", habitsController.updateHabit);
+		app.get("/day", dayController.getDay);
+		app.get("/stats", statsController.getStats);
 	}
 	catch (err) {
 		console.log(`Router error: ${err}`);
