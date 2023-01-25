@@ -4,6 +4,7 @@ import controllers from "../controllers";
 export const appRouter = async (app : FastifyInstance) => {
 	try {
 		app.post("/habits", controllers.habits.post);
+		app.patch("/habits/:id/toggle", controllers.habits.patch);
 		app.get("/day", controllers.day.get);
 	}
 	catch (err) {
